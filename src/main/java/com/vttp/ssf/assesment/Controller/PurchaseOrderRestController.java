@@ -42,8 +42,8 @@ public class PurchaseOrderRestController {
         JsonArray items = o.getJsonArray("Items");
         Map<String, Integer> itemMap = new HashMap<>();
 
-    
         
+        //for loop         
         for(int i = 0; i < items.size(); i++) {
             JsonObject item = items.getJsonObject(i);
             itemMap.put(item.getString("item"), item.getInt("quantity"));
