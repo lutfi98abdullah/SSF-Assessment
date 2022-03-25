@@ -35,17 +35,17 @@ public class PurchaseOrderRestController {
     public ResponseEntity<String> postPurchaseOrder(@RequestBody String payload) {
 
         InputStream is = new ByteArrayInputStream(payload.getBytes());
-        JsonReader jReader = Json.createReader(is);
-        JsonObject o = jReader.readObject();
+        JsonReader r = Json.createReader(is);
+        JsonObject o = r.readObject();
 
         String name = o.getString("name");
-        JsonArray lineItems = o.getJsonArray("lineItems");
+        JsonArray items = o.getJsonArray("Items");
         Map<String, Integer> itemMap = new HashMap<>();
 
     
         
-        for(int i = 0; i < lineItems.size(); i++) {
-            JsonObject item = lineItems.getJsonObject(i);
+        for(int i = 0; i < items.size(); i++) {
+            JsonObject item = items.getJsonObject(i);
             itemMap.put(item.getString("item"), item.getInt("quantity"));
         }
 

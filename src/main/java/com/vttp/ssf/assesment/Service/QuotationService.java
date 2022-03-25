@@ -22,7 +22,7 @@ import jakarta.json.JsonReader;
 @Service
 public class QuotationService {
 
-    private final String URL = "https://quotation.chuklee.com/quotation";
+    private final String url = "https://quotation.chuklee.com/quotation";
         
     public Optional<Quotation> getQuotations(List<String> items) {
         JsonArrayBuilder jArrayB = Json.createArrayBuilder();
@@ -32,7 +32,7 @@ public class QuotationService {
         }
 
         RequestEntity<String> req = RequestEntity
-            .post(URL)
+            .post(url)
             .contentType(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON)
             .body(jArrayB.build().toString());
@@ -47,13 +47,13 @@ public class QuotationService {
         
 
         InputStream is = new ByteArrayInputStream(quoteString.getBytes());
-        JsonReader reader = Json.createReader(is);
-        JsonObject quoteObj = reader.readObject();
+        JsonReader r = Json.createReader(is);
+        JsonObject o = r.readObject();
 
         Quotation q = new Quotation();
-        q.setQuoteId(quoteObj.getString("quoteId"));
+        q.setQuoteId(o.getString("quoteId"));
 
-        JsonArray quotationsArray = quoteObj.getJsonArray("quotations");
+        JsonArray quotationsArray = o.getJsonArray("quotations");
         for(int i = 0; i < quotationsArray.size(); i++) {
             JsonObject item = quotationsArray.getJsonObject(i);
             String itemName = item.getString("item");
