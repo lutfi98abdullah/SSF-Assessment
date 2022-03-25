@@ -1,5 +1,7 @@
 package com.vttp.ssf.assesment;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,30 +20,25 @@ import org.springframework.web.client.HttpClientErrorException;
 @SpringBootTest
 class AssesmentApplicationTests {
 	@Autowired 
-	public QuotationService quotationService;
+	public QuotationService qSvc;
 
 	@Test
-	void contextLoads() {
-	}
-
-
-	@Test
-	void GetQuotations() throws IOException{
+	void testQuotationSvcGetQuotations() throws IOException{
 		
 
-		String message= "%s";
+		String message= "";
 		try{
 		List<String> testList = new ArrayList<String>();
 		testList.add("durian");
 		testList.add("plum");
 		testList.add("pear");
-		Optional<Quotation> optional = quotationService.getQuotations(testList);
+		Optional<Quotation> opt = qSvc.getQuotations(testList);
 		}catch(HttpClientErrorException e){
 			message = e.getMessage();
 		}
-		String status ="400";
+		String actualmessage ="400";
 		
-		Assertions.assertTrue(message.contains(status));
+		Assertions.assertTrue(message.contains(actualmessage));
 	}
 	
 
